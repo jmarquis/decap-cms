@@ -70,7 +70,7 @@ const TreeNavLink = styled(NavLink)`
 function getNodeTitle(node) {
   const title = node.isRoot
     ? node.title
-    : node.children.find(c => !c.isDir && c.title)?.title || node.title;
+    : node.children.find(c => c.path.endsWith('index.md') && c.title)?.title || node.title;
   return title;
 }
 
