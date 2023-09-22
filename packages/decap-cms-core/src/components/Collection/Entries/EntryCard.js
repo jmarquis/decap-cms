@@ -97,13 +97,18 @@ function EntryCard({
   collectionLabel,
   viewStyle = VIEW_STYLE_LIST,
   getAsset,
+  entry,
 }) {
+  let indexLabel = entry.get('path').endsWith('index.md') ? <b> (index)</b> : '';
   if (viewStyle === VIEW_STYLE_LIST) {
     return (
       <ListCard>
         <ListCardLink to={path}>
           {collectionLabel ? <CollectionLabel>{collectionLabel}</CollectionLabel> : null}
-          <ListCardTitle>{summary}</ListCardTitle>
+          <ListCardTitle>
+            {summary}
+            {indexLabel}
+          </ListCardTitle>
         </ListCardLink>
       </ListCard>
     );
@@ -115,7 +120,10 @@ function EntryCard({
         <GridCardLink to={path}>
           <CardBody hasImage={image}>
             {collectionLabel ? <CollectionLabel>{collectionLabel}</CollectionLabel> : null}
-            <CardHeading>{summary}</CardHeading>
+            <CardHeading>
+              {summary}
+              {indexLabel}
+            </CardHeading>
           </CardBody>
           {image ? <CardImage src={getAsset(image, imageField).toString()} /> : null}
         </GridCardLink>
