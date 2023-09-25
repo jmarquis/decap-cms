@@ -1404,25 +1404,20 @@ export default class API {
     }, [] as TreeEntry[]);
 
     for (const { from, to, sha } of toMove) {
-      const sourceDir = dirname(from);
-      const destDir = dirname(to);
-      const files = await this.listFiles(sourceDir, { branch, depth: 100 });
-      for (const file of files) {
-        // delete current path
-        tree.push({
-          path: file.path,
-          mode: '100644',
-          type: 'blob',
-          sha: null,
-        });
-        // create in new path
-        tree.push({
-          path: file.path.replace(sourceDir, destDir),
-          mode: '100644',
-          type: 'blob',
-          sha: file.path === from ? sha : file.id,
-        });
-      }
+      // delete current path
+      tree.push({
+        path: from,
+        mode: '100644',
+        type: 'blob',
+        sha: null,
+      });
+      // create in new path
+      tree.push({
+        path: to,
+        mode: '100644',
+        type: 'blob',
+        sha: sha,
+      });
     }
 
     const newTree = await this.createTree(baseSha, tree);

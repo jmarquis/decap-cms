@@ -209,9 +209,8 @@ export function selectCustomPath(collection, entryDraft) {
   }
   const meta = entryDraft.getIn(['entry', 'meta']);
   const path = meta && meta.get('path');
-  const indexFile = get(collection.toJS(), ['meta', 'path', 'index_file']);
   const extension = selectFolderEntryExtension(collection);
-  const customPath = path && join(collection.get('folder'), path, `${indexFile}.${extension}`);
+  const customPath = path && join(collection.get('folder'), `${path}.${extension}`);
   return customPath;
 }
 

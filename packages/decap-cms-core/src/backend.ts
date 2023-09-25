@@ -292,8 +292,12 @@ function prepareMetaPath(path: string, collection: Collection) {
   if (!selectHasMetaPath(collection)) {
     return path;
   }
-  const dir = dirname(path);
-  return dir.slice(collection.get('folder')!.length + 1) || '/';
+  // const dir = dirname(path);
+  const relativePath = path.slice(collection.get('folder')!.length + 1) || '/';
+  return relativePath.slice(
+    0,
+    relativePath.length - selectFolderEntryExtension(collection).length - 1,
+  );
 }
 
 function collectionDepth(collection: Collection) {
