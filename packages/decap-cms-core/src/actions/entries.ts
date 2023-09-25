@@ -863,6 +863,10 @@ export function getSerializedEntry(collection: Collection, entry: Entry) {
    */
   const fields = selectFields(collection, entry.get('slug'));
 
+  if (entry.get('data').get('sidebar_label') === '') {
+    entry = entry.set('data', entry.get('data').delete('sidebar_label'));
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function serializeData(data: any) {
     return serializeValues(data, fields);
